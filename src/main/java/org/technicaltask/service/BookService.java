@@ -6,6 +6,7 @@ import org.technicaltask.dto.BookDto;
 import org.technicaltask.entity.Book;
 import org.technicaltask.exception.IdNotFoundException;
 import org.technicaltask.repository.BookRepository;
+import java.util.List;
 
 @Service
 public class BookService {
@@ -15,6 +16,10 @@ public class BookService {
     @Autowired
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
+    }
+
+    public List<Book> getBooks() {
+        return bookRepository.findAll();
     }
 
     public BookDto getBookById(Long id) {
@@ -51,21 +56,11 @@ public class BookService {
     public void updateBook(BookDto bookDto, Long id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new IdNotFoundException("The book does not exist by this id: " + id));
+        book.setTitle(bookDto.getTitle());
+        book.setAuthor(bookDto.getAuthor());
+        book.setAuthor(bookDto.getAuthor());
 
-        updateBookFields(bookDto, book);
         bookRepository.save(book);
-    }
-
-    private void updateBookFields(BookDto bookDto, Book book) {
-        if (bookDto.getTitle() != null) {
-            book.setTitle(bookDto.getTitle());
-        }
-        if (bookDto.getAuthor() != null) {
-            book.setAuthor(bookDto.getAuthor());
-        }
-        if (bookDto.getAmount() != null) {
-            book.setAmount(bookDto.getAmount());
-        }
     }
 
     public void deleteBookById(Long id) {

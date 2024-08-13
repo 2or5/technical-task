@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.technicaltask.dto.BookDto;
+import org.technicaltask.entity.Book;
 import org.technicaltask.service.BookService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/books")
@@ -25,6 +28,11 @@ public class BookController {
         this.bookService = bookService;
     }
 
+    @GetMapping
+    public List<Book> getBooks() {
+        return bookService.getBooks();
+    }
+
     @GetMapping("/{id}")
     public BookDto getBook(@PathVariable Long id) {
         return bookService.getBookById(id);
@@ -35,7 +43,7 @@ public class BookController {
         bookService.saveBook(bookDto);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public void updateBook(@Valid @RequestBody BookDto bookDto, @PathVariable Long id) {
         bookService.updateBook(bookDto, id);
     }
