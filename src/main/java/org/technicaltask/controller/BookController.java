@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.technicaltask.dto.BookDto;
+import org.technicaltask.dto.EditBookDto;
 import org.technicaltask.dto.BookDtoResponse;
+import org.technicaltask.dto.SaveBookDto;
 import org.technicaltask.entity.Book;
 import org.technicaltask.service.BookService;
 
@@ -35,17 +36,17 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public BookDto getBook(@PathVariable Long id) {
+    public EditBookDto getBook(@PathVariable Long id) {
         return bookService.getBookById(id);
     }
 
     @PostMapping
-    public void saveBook(@Valid @RequestBody BookDto bookDto) {
-        bookService.saveBook(bookDto);
+    public void saveBook(@Valid @RequestBody SaveBookDto saveBookDto) {
+        bookService.saveBook(saveBookDto);
     }
 
     @PutMapping("/{id}")
-    public void updateBook(@Valid @RequestBody BookDto bookDto, @PathVariable Long id) {
+    public void updateBook(@Valid @RequestBody EditBookDto bookDto, @PathVariable Long id) {
         bookService.updateBook(bookDto, id);
     }
 

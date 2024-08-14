@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class BookDto {
+public class EditBookDto {
 
     @NotBlank(message = "Title is required")
     @Size(min = 3, message = "Title must be at least 3 characters")

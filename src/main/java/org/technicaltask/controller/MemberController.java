@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.technicaltask.dto.MemberDto;
 import org.technicaltask.entity.Member;
 import org.technicaltask.service.MemberService;
 import java.util.List;
@@ -25,12 +26,12 @@ public class MemberController {
     }
 
     @GetMapping
-    public List<Member> getMembers() {
+    public List<MemberDto> getMembers() {
         return memberService.getMembers();
     }
 
     @GetMapping("/{id}")
-    public Member getMemberById(@PathVariable Long id) {
+    public MemberDto getMemberById(@PathVariable Long id) {
         return memberService.getMemberById(id);
     }
 
