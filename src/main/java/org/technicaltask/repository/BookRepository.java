@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.technicaltask.dto.BookDtoResponse;
 import org.technicaltask.entity.Book;
-
 import java.util.List;
 
 @Repository
