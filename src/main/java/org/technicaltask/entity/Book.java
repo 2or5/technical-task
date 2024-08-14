@@ -1,9 +1,12 @@
 package org.technicaltask.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -12,6 +15,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -38,4 +43,8 @@ public class Book {
     private String author;
 
     private Integer amount;
+
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Member> members;
 }

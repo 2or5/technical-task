@@ -3,6 +3,7 @@ package org.technicaltask.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.technicaltask.dto.BookDto;
+import org.technicaltask.dto.BookDtoResponse;
 import org.technicaltask.entity.Book;
 import org.technicaltask.exception.IdNotFoundException;
 import org.technicaltask.repository.BookRepository;
@@ -65,5 +66,17 @@ public class BookService {
 
     public void deleteBookById(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    public List<Book> getBorrowedBooksByMemberName(String memberName) {
+        return bookRepository.getBorrowedBooksByMemberName(memberName);
+    }
+
+    public List<String> getBorrowedBookNames() {
+        return bookRepository.getBorrowedBookNames();
+    }
+
+    public List<BookDtoResponse> getBorrowedBookNamesWithCounter() {
+        return bookRepository.getBorrowedBookNamesWithCounter();
     }
 }
