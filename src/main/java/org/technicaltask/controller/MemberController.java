@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.technicaltask.dto.MemberDto;
-import org.technicaltask.entity.Member;
 import org.technicaltask.service.MemberService;
 import java.util.List;
 
@@ -48,5 +47,15 @@ public class MemberController {
     @DeleteMapping("/{id}")
     public void deleteMember(@PathVariable Long id) {
         memberService.deleteMember(id);
+    }
+
+    @PostMapping("/borrowBook")
+    public void borrowBook(@RequestParam Long memberId, @RequestParam Long bookId) {
+        memberService.borrowBook(memberId, bookId);
+    }
+
+    @PostMapping("/returnBorrowBook")
+    public void returnBorrowBook(@RequestParam Long memberId, @RequestParam Long bookId) {
+        memberService.returnBorrowBook(memberId, bookId);
     }
 }
