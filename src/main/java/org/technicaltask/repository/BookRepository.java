@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.technicaltask.dto.BookDtoResponse;
+import org.technicaltask.dto.BookDtoResponseWithCounter;
 import org.technicaltask.entity.Book;
 import java.util.List;
 
@@ -20,8 +21,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("SELECT DISTINCT b.title FROM Book b JOIN b.members")
     List<String> getBorrowedBookNames();
 
-    @Query("SELECT new org.technicaltask.dto.BookDtoResponse(b.title, COUNT(m)) " +
+    @Query("SELECT new org.technicaltask.dto.BookDtoResponseWithCounter(b.title, COUNT(m)) " +
             "FROM Book b JOIN b.members m " +
             "GROUP BY b.title")
-    List<BookDtoResponse> getBorrowedBookNamesWithCounter();
+    List<BookDtoResponseWithCounter> getBorrowedBookNamesWithCounter();
 }

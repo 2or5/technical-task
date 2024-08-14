@@ -7,11 +7,9 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 @Builder
-public class BookDtoResponse {
+public class BookDtoResponseWithCounter {
 
     private String title;
 
-    private String author;
-
-    private Integer amount;
+    private Long amount;
 }

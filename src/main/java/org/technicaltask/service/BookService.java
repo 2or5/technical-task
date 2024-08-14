@@ -2,6 +2,7 @@ package org.technicaltask.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.technicaltask.dto.BookDtoResponseWithCounter;
 import org.technicaltask.dto.EditBookDto;
 import org.technicaltask.dto.BookDtoResponse;
 import org.technicaltask.dto.SaveBookDto;
@@ -24,11 +25,11 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public EditBookDto getBookById(Long id) {
+    public BookDtoResponse getBookById(Long id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new IdNotFoundException("The book does not exist by this id: " + id));
 
-        return EditBookDto.builder()
+        return BookDtoResponse.builder()
                 .title(book.getTitle())
                 .author(book.getAuthor())
                 .amount(book.getAmount())
@@ -78,7 +79,7 @@ public class BookService {
         return bookRepository.getBorrowedBookNames();
     }
 
-    public List<BookDtoResponse> getBorrowedBookNamesWithCounter() {
+    public List<BookDtoResponseWithCounter> getBorrowedBookNamesWithCounter() {
         return bookRepository.getBorrowedBookNamesWithCounter();
     }
 }

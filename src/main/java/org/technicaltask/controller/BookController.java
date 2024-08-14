@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.technicaltask.dto.BookDtoResponseWithCounter;
 import org.technicaltask.dto.EditBookDto;
 import org.technicaltask.dto.BookDtoResponse;
 import org.technicaltask.dto.SaveBookDto;
@@ -35,7 +36,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public EditBookDto getBook(@PathVariable Long id) {
+    public BookDtoResponse getBook(@PathVariable Long id) {
         return bookService.getBookById(id);
     }
 
@@ -65,7 +66,7 @@ public class BookController {
     }
 
     @GetMapping("/getBorrowedBookNamesWithCounter")
-    public List<BookDtoResponse> getBorrowedBookNamesWithCounter() {
+    public List<BookDtoResponseWithCounter> getBorrowedBookNamesWithCounter() {
         return bookService.getBorrowedBookNamesWithCounter();
     }
 }
