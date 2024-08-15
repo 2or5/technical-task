@@ -106,8 +106,25 @@ public class MemberServiceTest {
 
     @Test
     public void deleteMemberTest() {
+        var member = new Member(1L, "Test", LocalDate.now(), new ArrayList<>());
+
+        when(memberRepository.findById(1L)).thenReturn(Optional.of(member));
         memberService.deleteMember(1L);
+        verify(memberRepository, times(1)).findById(1L);
         verify(memberRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    public void deleteMemberWithBookTest() {
+        var book = new Book();
+        var books = new ArrayList<Book>();
+        books.add(book);
+        var member = new Member(1L, "Test", LocalDate.now(), books);
+
+        when(memberRepository.findById(1L)).thenReturn(Optional.of(member));
+        assertThrows(IllegalStateException.class, () -> memberService.deleteMember(1L));
+        verify(memberRepository, times(1)).findById(1L);
+        verify(memberRepository, never()).deleteById(1L);
     }
 
     @Test

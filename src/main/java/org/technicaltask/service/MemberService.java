@@ -65,6 +65,13 @@ public class MemberService {
     }
 
     public void deleteMember(Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IdNotFoundException("The member does not exist by this id: " + id));
+
+        if (!member.getBooks().isEmpty()) {
+            throw new IllegalStateException("Cannot delete member because it is referenced by book");
+        }
+
         memberRepository.deleteById(id);
     }
 

@@ -68,6 +68,13 @@ public class BookService {
     }
 
     public void deleteBookById(Long id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new IdNotFoundException("The book does not exist by this id: " + id));
+
+        if (!book.getMembers().isEmpty()) {
+            throw new IllegalStateException("Cannot delete book because it is referenced by members");
+        }
+
         bookRepository.deleteById(id);
     }
 

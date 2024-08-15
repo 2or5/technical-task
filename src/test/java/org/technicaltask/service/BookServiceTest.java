@@ -10,6 +10,7 @@ import org.technicaltask.dto.BookDtoResponseWithCounter;
 import org.technicaltask.dto.EditBookDto;
 import org.technicaltask.dto.SaveBookDto;
 import org.technicaltask.entity.Book;
+import org.technicaltask.entity.Member;
 import org.technicaltask.exception.IdNotFoundException;
 import org.technicaltask.repository.BookRepository;
 import java.util.ArrayList;
@@ -108,8 +109,23 @@ public class BookServiceTest {
 
     @Test
     public void deleteBookByIdTest() {
+        var book = new Book(1L, "Test", "Test", 2, new ArrayList<>());
+        when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
         bookService.deleteBookById(1L);
+        verify(bookRepository, times(1)).findById(1L);
         verify(bookRepository, times(1)).deleteById(1L);
+    }
+    @Test
+    public void deleteBookByIdWithMemberTest() {
+        var member = new Member();
+        var members = new ArrayList<Member>();
+        members.add(member);
+        var book = new Book(1L, "Test", "Test", 2, members);
+
+        when(bookRepository.findById(1L)).thenReturn(Optional.of(book));
+        assertThrows(IllegalStateException.class, () -> bookService.deleteBookById(1L));
+        verify(bookRepository, times(1)).findById(1L);
+        verify(bookRepository, never()).deleteById(1L);
     }
 
     @Test
